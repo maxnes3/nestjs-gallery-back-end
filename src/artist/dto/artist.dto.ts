@@ -3,6 +3,13 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class ArtistDto {
   @ApiProperty({
+    example: '1234567890abcdef',
+    description: 'The ID of the artist'
+  })
+  @IsString()
+  id: string;
+
+  @ApiProperty({
     description: 'The name of the artist',
     example: 'Leonardo da Vinci'
   })

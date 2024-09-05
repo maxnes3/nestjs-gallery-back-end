@@ -11,6 +11,13 @@ import { LocationDto } from '../../location/dto/location.dto';
 
 export class PaintingDto {
   @ApiProperty({
+    example: '1234567890abcdef',
+    description: 'The ID of the painting'
+  })
+  @IsString()
+  id: string;
+
+  @ApiProperty({
     description: 'Title of the painting',
     example: 'Starry Night'
   })
