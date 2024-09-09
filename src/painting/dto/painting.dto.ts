@@ -1,21 +1,14 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
-import {
-  IsString,
-  IsNotEmpty,
-  ValidateNested,
-  IsBase64
-} from 'class-validator';
-import { ArtistDto } from '../../artist/dto/artist.dto';
-import { LocationDto } from '../../location/dto/location.dto';
+import { IsString, IsNotEmpty, IsBase64, IsOptional } from 'class-validator';
 
 export class PaintingDto {
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: '1234567890abcdef',
     description: 'The ID of the painting'
   })
   @IsString()
-  id: string;
+  @IsOptional()
+  id?: string;
 
   @ApiProperty({
     description: 'Title of the painting',
@@ -26,20 +19,20 @@ export class PaintingDto {
   title: string;
 
   @ApiProperty({
-    description: 'Details about the artist',
-    type: ArtistDto
+    description: 'Name of the artist',
+    example: 'Van Gogh'
   })
-  @ValidateNested()
-  @Type(() => ArtistDto)
-  artist: ArtistDto;
+  @IsNotEmpty({ message: 'Artist is required' })
+  @IsString()
+  artist: string;
 
   @ApiProperty({
     description: 'Location where the painting is displayed',
-    type: LocationDto
+    example: 'The Louvre'
   })
-  @ValidateNested()
-  @Type(() => LocationDto)
-  location: LocationDto;
+  @IsNotEmpty({ message: 'Location is required' })
+  @IsString()
+  location: string;
 
   @ApiPropertyOptional({
     description: 'The year the painting was created',

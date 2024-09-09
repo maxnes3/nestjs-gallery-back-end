@@ -1,4 +1,4 @@
-import { Controller, Get, HttpCode, Param } from '@nestjs/common';
+import { Controller, Get, HttpCode, Param, Query } from '@nestjs/common';
 import { PaintingService } from './painting.service';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 
@@ -11,8 +11,8 @@ export class PaintingController {
   @Get('get')
   @ApiOperation({ summary: 'Get all paintings' })
   @ApiResponse({ status: 200, description: 'Returns a list of all paintings.' })
-  async getAll() {
-    return this.paintingService.getAll();
+  async getAll(@Query('page') page: number) {
+    return this.paintingService.getAll(page);
   }
 
   @HttpCode(200)
